@@ -1,26 +1,22 @@
-var _line_sensors = require('../index.js'),
-    line_sensors = new _line_sensors();
-// line_sensors.setBackground("black");
-line_sensors.enableEvents();
+const LineSensors = require('../index.js');
 
-// setInterval(() => {
-//   console.log("Sensores: " + line_sensors.readSensors());
-//   console.log("Linea: " + line_sensors.readLine());
-// },1000);
+const lineSensors = new LineSensors();
 
-line_sensors.on('reading',(_line,_sensors)=>{
-  console.log("Linea: " + _line);
-  console.log("Sensores: " + line_sensors.sensorsToString(_sensors));
+lineSensors.enableEvents();
+
+lineSensors.on('reading', (_line, _sensors) => {
+  /* eslint-disable no-console */
+  console.log(`Linea: ${_line}`);
+  /* eslint-disable no-console */
+  console.log(`Sensores: ${lineSensors.sensorsToString(_sensors)}`);
 });
 
-setInterval(()=>{ // Proceso en estado ocioso
-  true;
-},10000);
+setInterval(() => {}, 10000);
 
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
   process.exit();
 });
 
-process.on('SIGTERM', function () {
+process.on('SIGTERM', () => {
   process.exit();
 });

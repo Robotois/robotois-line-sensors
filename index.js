@@ -1,63 +1,67 @@
-var _lineSensors = require('bindings')('LineSensorsModule')
-var EventEmitter = require('events').EventEmitter;
-var inherits = require('util').inherits;
-
-function LineSensorsModule(_add = 0){
+const LineSensors = require('bindings')('LineSensorsModule');
+const EventEmitter = require('events').EventEmitter;
+const inherits = require('util').inherits;
+/**
+ * Creates an instance of LineSensorsModule.
+ * @param {int} add The second argument.
+ * @returns {LineSensorsModule} LineSensorsModule object.
+ */
+function LineSensorsModule(add = 0) {
+  const self = this;
   EventEmitter.call(this);
-  var _self = this;
 
-  this.line = new _lineSensors(_add);
+  this.line = new LineSensors(add);
 
-  process.on('SIGINT', function () {
-    _self.line.release();
+  process.on('SIGINT', () => {
+    self.line.release();
   });
 
-  process.on('SIGTERM', function () {
-    _self.line.release();
+  process.on('SIGTERM', () => {
+    self.line.release();
   });
 }
 
-LineSensorsModule.prototype.readSensors = function(){
+LineSensorsModule.prototype.readSensors = function readSensors() {
   return this.line.readSensors();
-}
+};
 
-LineSensorsModule.prototype.readSensor = function(_sensor){
-  return this.line.readSensor(_sensor);
-}
+LineSensorsModule.prototype.readSensor = function readSensor(sensor) {
+  return this.line.readSensor(sensor);
+};
 
-LineSensorsModule.prototype.readLine = function(){
+LineSensorsModule.prototype.readLine = function readLine() {
   return this.line.readLine();
-}
+};
 
-LineSensorsModule.prototype.setBackground = function(_str){
-  this.line.setBackground(_str);
-}
+LineSensorsModule.prototype.setBackground = function setBackground(str) {
+  this.line.setBackground(str);
+};
 
-LineSensorsModule.prototype.enableEvents = function(){
-  var line;//
-  if(!this.eventInterval){
-    this.eventInterval = setInterval(()=>{ // Medicionies cada 100ms
+LineSensorsModule.prototype.enableEvents = function enableEvents() {
+  let line;
+  let sensors;
+  if (!this.eventInterval) {
+    this.eventInterval = setInterval(() => { // Medicionies cada 100ms
       sensors = this.readSensors();
       line = this.readLine();
-      this.emit('reading',line,sensors);
-    },100);
+      this.emit('reading', line, sensors);
+    }, 100);
   }
-}
-
-LineSensorsModule.prototype.sensorsToString = function(_sensors){
-  return ("00000" + _sensors.toString(2)).slice(-5);
 };
 
-LineSensorsModule.prototype.lineToString = function(_line){
-  return ("     " + _line.toFixed(1).toString()).slice(-5);
+LineSensorsModule.prototype.sensorsToString = function sensorsToString(sensors) {
+  return (`00000${sensors.toString(2)}`).slice(-5);
 };
 
-LineSensorsModule.prototype.release = function() {
-  // clearInterval(this.interval);
+LineSensorsModule.prototype.lineToString = function lineToString(line) {
+  return (`     ${line.toFixed(1).toString()}`).slice(-5);
+};
+
+LineSensorsModule.prototype.release = function release() {
   clearInterval(this.eventInterval);
   this.line.release();
-}
+};
 
-inherits(LineSensorsModule,EventEmitter);
+inherits(LineSensorsModule, EventEmitter);
 
 module.exports = LineSensorsModule;
