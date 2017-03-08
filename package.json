@@ -1,15 +1,25 @@
 {
   "name": "LineSensors",
   "version": "1.0.0",
-  "description": "Node library for the Line sensors module",
+  "description": "Node library to control the line sensors module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "line_sensors"
+    "line",
+    "sensor",
+    "robotois",
+    "IOT"
   ],
   "author": "yovany@robotois.com",
+  "contributors": [
+    {
+      "name": "Armando Gonzalez",
+      "email": "iam@armando.mx",
+      "url": "http://armando.mx/"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "bindings": "^1.2.1"
