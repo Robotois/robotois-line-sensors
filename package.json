@@ -1,5 +1,5 @@
 {
-  "name": "robotois-line-sensor",
+  "name": "robotois-line-sensors",
   "version": "1.0.1",
   "description": "Node library to control the line sensors module",
   "main": "index.js",
