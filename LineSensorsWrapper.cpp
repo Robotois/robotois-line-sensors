@@ -19,6 +19,7 @@ void LineSensorsWrapper::release(const FunctionCallbackInfo<Value>& args){
   HandleScope scope(isolate);
 
   LineSensorsWrapper* temp_obj = ObjectWrap::Unwrap<LineSensorsWrapper>(args.Holder());
+  temp_obj->lineSensors->release();
   delete temp_obj->lineSensors;
 }
 

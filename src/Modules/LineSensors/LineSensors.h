@@ -32,10 +32,14 @@ public:
     int16_t readLine();
     void setBackground(uint8_t _bg);
     uint8_t readSensor(uint8_t _sensor);
+
+    void release();
 private:
     MCP23008 *mcp;
     uint8_t _io_pins[8], background;
+
     void initialize();
+    void enableSensors(uint8_t status);
 };
 
 #endif

@@ -38,7 +38,7 @@ void LineSensors::initialize(){
     mcp->setDir(_io_pins,MCP23008_INPUT,6); //Sensor pins as inputs
     mcp->setPullUp(_io_pins,MCP23008_PULL_UP_EN,6); //Pull-Ups enabled for sensor pins
     mcp->setDir(LINESENSORS_ENABLE,MCP23008_OUTPUT); //Enable pin as output
-    mcp->digitalWrite(LINESENSORS_ENABLE,MCP23008_HIGH); //Enable the sensors
+    enableSensors(MCP23008_HIGH);
 
     background = LINESENSORS_WHITE_BACKGROUND; // Default background
 }
@@ -84,4 +84,14 @@ int16_t LineSensors::readLine(){
 
 void LineSensors::setBackground(uint8_t _bg){
     background = _bg;
+}
+
+void LineSensors::enableSensors(uint8_t status){
+  mcp->digitalWrite(LINESENSORS_ENABLE,status); //Enable the sensors
+}
+
+void LineSensors::release(){
+  mcp->digitalWrite(LINESENSORS_ENABLE,MCP23008_LOW); //Enable the sensors
+  delete mcp;
+  printf("[LineSensors] => Released\n");
 }
