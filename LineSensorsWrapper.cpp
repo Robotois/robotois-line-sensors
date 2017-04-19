@@ -171,5 +171,4 @@ void LineSensorsWrapper::setBackground(const FunctionCallbackInfo<Value>& args){
     }
   }
   temp_obj->lineSensors->setBackground(_background);
-  // args.GetReturnValue().Set(Number::New(isolate,));
 }

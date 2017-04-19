@@ -2,12 +2,11 @@ const LineSensors = require('../index.js');
 
 const lineSensors = new LineSensors();
 
-lineSensors.enableEvents();
-
-lineSensors.on('medicion', (_line, _sensors) => {
+setInterval(() => {
   /* eslint-disable no-console */
-  console.log(`Linea: ${_line}, Sensores: ${lineSensors.sensorsToString(_sensors)}`);
-});
+  // console.log(`Sensores: ${lineSensors.sensorsToString(lineSensors.readSensors())}`);
+  console.log(`Sensores: ${lineSensors.readLine()}`);
+}, 500);
 
 process.on('SIGINT', () => {
   process.exit();

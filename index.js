@@ -38,14 +38,14 @@ LineSensorsModule.prototype.setBackground = function setBackground(str) {
 };
 
 LineSensorsModule.prototype.enableEvents = function enableEvents() {
-  let line;
-  let sensors;
   if (!this.eventInterval) {
+    let line;
+    let sensors;
     this.eventInterval = setInterval(() => { // Medicionies cada 100ms
       sensors = this.readSensors();
       line = this.readLine();
-      this.emit('reading', line, sensors);
-    }, 100);
+      this.emit('medicion', line, sensors);
+    }, 250);
   }
 };
 
